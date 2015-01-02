@@ -1,0 +1,13 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" template="templateClient.xhtml" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<ui:define name="contenu">
+	<p:panel   header="Chercher une Agence">
+						<p:gmap center="32.381542, -10.002893" zoom="7" type="hybrid" 
+                            style="width:600px;height:450px" model="#{mapMgdBean.model}" />
+					</p:panel>
+					</ui:define></ui:composition>

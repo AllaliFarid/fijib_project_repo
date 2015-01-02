@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/templateClient2.xhtml">
+	<ui:define name="title">
+		Accueil Fijib
+	</ui:define>
+
+	<ui:define name="contenu">
+
+ 		<div>#{envoiBean.get()}</div>
+
+		<p:messages id="messages" showDetail="true" autoUpdate="true"
+			closable="true" />
+
+		<div class="hya"></div>
+		<div class="row headJumbo">
+			<div class="col-md-12">
+				<p>Accomplissement du Transfert</p>
+			</div>
+		</div>
+
+		<div class="row jumbobody">
+
+		 
+			<div class="col-md-12">
+				<div align="center">
+					<h:form id="fer">
+
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-4">
+									<p:outputLabel
+										value="Montant : #{envoiBean.infoEnvoiNs.montant} €"  />
+								</div>
+								<div class="col-md-4">
+									<p:outputLabel value="Frais : #{envoiBean.infoEnvoiNs.frais} €"  />
+								</div>
+								<div class="col-md-4">
+									<p:outputLabel
+										value="Total : #{envoiBean.infoEnvoiNs.montant + 
+											envoiBean.infoEnvoiNs.frais} €"  />
+								</div>
+							</div>
+						</div>
+					 
+						 
+
+						 <p:separator/>
+
+						<div class="col-md-12">
+							<p:commandButton action="#{envoiBean.setPayPalL}" ajax="false"
+								value="Suivant >>"   />
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,141 @@
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.container ul li a:hover{
+   background: #3c5694;
+   color: #FFF ;
+}
+.container ul li a{
+  font-family: "Arial Black" , Gadget , sans-serif;
+  margin-right: 5px;
+  border-bottom: none;
+ 
+ }
+ 
+.container ul li a.selected:hover{
+  text-shadow: 1px 1px 1px #000;
+  background: #FFF;
+  color: #000;
+   
+}
+.selected {
+   background: #FFF;
+   color: #000;
+   border-bottom:1px solid #FFF ;  
+}
+ 
+.navbar-defaultx {
+    background-color: #4c66a4;
+    border-color: #77B5FE;
+    height:84px;
+}
+
+.navbar-default-foot {
+	margin-top: 20px;
+	background-color: #eaeaea;
+	height: 100px;
+	border: solid 1px #a0b0b0;
+	border-radius: 0%;
+}
+
+.activex{
+	background-color: #3c5694;
+}
+
+.barex{
+	background-color: #fff;
+}
+
+li a {
+	color: #fff;
+}
+
+.posX {
+	margin-top:42px;
+	margin-right: 212px;
+}
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    float:none;
+}
+
+.jumboHeader {
+	min-height: 215px;
+	background-color: #eaeaea;
+}
+
+.jumbobody {
+	min-height: 228px;
+	background-color: #eaeaea;
+	padding: 15px;
+	margin-left: 15px;
+	width: 1080px;
+}
+
+.jumbobody1 {
+	min-height: 228px;
+	background-color: #eaeaea;
+    margin-left: 300px; 	 
+}
+
+.jumboMenu {
+	min-height: 95px;
+	background-color: #eaeaea;
+	padding: 15px;
+}
+
+.form-marging{
+	padding: 12px;
+}
+
+.hya{
+	height: 10px;
+}
+
+.hy{
+	height: 100px;
+}
+
+.hyX{
+	height: 60px;
+}
+
+.padForm{
+	position: relative;
+    top: 50px;
+}
+
+.padFormX table tr td{
+	padding: 10px;
+}
+
+.padForm table tr td{
+	padding: 10px;
+}
+
+.headJumbo{
+	background-color: #4c66a4;
+    border-color: #E7E7E7;
+    min-height: 30px;
+    width: 225px;
+}
+
+.headJumbo p{
+	color: #fff;
+	font-weight: bold;
+	margin-top: 3px;
+}
+
+.well1 {
+	min-height: 20px;
+	padding: 19px;
+	margin-bottom: 20px;
+	background-color: #D7D6D6;
+	border: 1px solid #e3e3e3;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05)
+}

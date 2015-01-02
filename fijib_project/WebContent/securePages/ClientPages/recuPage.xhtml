@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Reçus</title>
+	<style type="text/css">
+	
+body {
+	font-family: Helvetica;
+	width: 700px;
+	margin: 0 auto;
+	background-color: #e7e8e8;
+}
+
+section {
+	border-radius: 2px 2px 2px 2px;
+	box-shadow: -16px 0 20px -20px #FFF, 16px 0 20px -20px #FFF;
+}
+
+h1, footer {
+	color: #FafaFa;
+}
+
+#dayon_link {
+	display: inline-block;
+	height: 95px;
+	width: 100%;
+}
+
+#posi {
+	padding-left: 690px;
+}
+
+.za{
+	padding: 5px;
+}
+</style>
+
+</h:head>
+<h:body>
+	
+	<div align="center" style="background-color: #12a5d6; min-height: 60px; width: 700px; margin-left: 5px">
+		<h:form>
+			<p:commandButton style="margin-top: 10px" value="Générer Reçu" action="#{envoiBean.createRecuPDF}" ajax="false"></p:commandButton>
+		</h:form>
+	</div>
+	
+	<section>
+		<div class="za">
+			<div id="dayon_link" align="left">
+				<h:graphicImage library="images" name="headerRecu.jpg"></h:graphicImage>
+			</div>
+			<h2 align="center">Reçu de transfert</h2>
+			<p:separator></p:separator>
+
+			<table style="width: 690px; height: 35px">
+				<tr>
+					<td><p:outputLabel
+							value="Code du transfert : #{envoiBean.recu.codeEnvoi}"></p:outputLabel></td>
+					<td align="center" style="margin-right: 5px"><p:outputLabel
+							value="le : #{envoiBean.recu.dateLe}"></p:outputLabel></td>
+				</tr>
+			</table>
+
+			<h4 align="center">
+				<p:outputLabel>Informations du transfert</p:outputLabel>
+			</h4>
+			<p:panelGrid style="width: 690px">
+				<p:row>
+					<p:column>
+						<p:outputLabel>Date du transfert </p:outputLabel>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="#{envoiBean.recu.dateTransfert}"></p:outputLabel>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel>Intitulé </p:outputLabel>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="#{envoiBean.recu.intitule}"></p:outputLabel>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>CIN Client</p:column>
+					<p:column>
+						<p:outputLabel value="#{envoiBean.recu.cinEnv}"></p:outputLabel>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>CIN bénéficaire </p:column>
+					<p:column>
+						<p:outputLabel value="#{envoiBean.recu.cinBenef}"></p:outputLabel>
+					</p:column>
+				</p:row>
+
+			</p:panelGrid>
+			<p:separator></p:separator>
+			<p:panelGrid style="width: 690px">
+
+				<p:row>
+					<p:column>Type du paiment</p:column>
+					<p:column>
+						<p:outputLabel value="#{envoiBean.recu.typePaiment}"></p:outputLabel>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>Code du Virement</p:column>
+					<p:column>
+						<p:outputLabel value="#{envoiBean.recu.codeVirement}"></p:outputLabel>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+
+			<h4 align="center">
+				<p:outputLabel>Détails du paiment</p:outputLabel>
+			</h4>
+			<p:separator></p:separator>
+
+			<p:panelGrid style="width: 690px">
+				<p:row>
+					<p:column>Montant</p:column>
+					<p:column>
+						<p:outputLabel style="float: right" value="#{envoiBean.recu.montant} €"></p:outputLabel>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel>Frais</p:outputLabel>
+					</p:column>
+					<p:column>
+						<p:outputLabel style="float: right" value="#{envoiBean.recu.frais} €"></p:outputLabel>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel>Total</p:outputLabel>
+					</p:column>
+					<p:column>
+						<p:outputLabel style="float: right" value="#{envoiBean.recu.total} €"></p:outputLabel>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</div>
+	</section>
+</h:body>
+</html>

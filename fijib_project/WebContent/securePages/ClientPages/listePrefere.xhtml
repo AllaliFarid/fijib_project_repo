@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Liste des bénéficiaires préférés</title>
+	<style type="text/css">
+.ui-widget {
+	font-size: 90%;
+}
+</style>
+</h:head>
+
+<h:body>
+	<div class="container">
+	
+		<div>#{listePrefereMdgbean.getListePrefere()}</div>
+
+
+		<h:form id="ioi">
+			<p:dataTable var="client" value="#{listePrefereMdgbean.clients}">
+				<p:column headerText="nom">
+					<h:outputText value="#{client.firstName}" />
+				</p:column>
+
+				<p:column headerText="prenom">
+					<h:outputText value="#{client.lastName}" />
+				</p:column>
+
+				<p:column headerText="cin">
+					<h:outputText value="#{client.cin}" />
+				</p:column>
+
+				<p:column headerText="Sélectionner Bénéficier">
+					<p:commandButton value="Selectionner"
+						actionListener="#{listePrefereMdgbean.selectClientFromDialog(client)}" />
+
+					<p:commandButton value="Supprimer" action="#{listePrefereMdgbean.supprimer(client)}" update=":ioi"/>
+				</p:column>
+			</p:dataTable>
+
+			<p:separator></p:separator>
+			<div class="hya"></div>
+			<center>
+				<p:commandButton value="Ajouter bénéficiaire préféré" update=":arz"
+					actionListener="#{listePrefereMdgbean.ajouterPage}">
+				</p:commandButton>
+			</center>
+		</h:form>
+		
+		<h:panelGroup id="arz">
+			<h:form id="formRech" rendered="#{listePrefereMdgbean.etatRech}">
+
+				<span> <p:outputLabel value="Recherche par : "></p:outputLabel>
+					<p:selectOneRadio id="typeRecherche"
+						value="#{listePrefereMdgbean.typeRecherche}">
+						<f:selectItem itemLabel="e-mail" itemValue="email" />
+						<f:selectItem itemLabel="Nom" itemValue="nom" />
+						<f:selectItem itemLabel="CIN" itemValue="cin" />
+					</p:selectOneRadio>
+				</span>
+				<p:inputText value="#{listePrefereMdgbean.inputRecherche}"></p:inputText>
+				<p:commandButton stye="margin-left : 5px" icon="ui-icon-search"
+					action="#{listePrefereMdgbean.recherche}" update="toolboxOptions"
+					ajax="false"></p:commandButton>
+				<p:separator></p:separator>
+
+				<p:dataTable var="client"
+					value="#{listePrefereMdgbean.clientsRecherche}">
+					<p:column headerText="nom">
+						<h:outputText value="#{client.firstName}" />
+					</p:column>
+
+					<p:column headerText="prenom">
+						<h:outputText value="#{client.lastName}" />
+					</p:column>
+
+					<p:column headerText="cin">
+						<h:outputText value="#{client.cin}" />
+					</p:column>
+					<p:column headerText="Ajouter Bénéficier">
+						<p:commandButton value="ajouter" ajax="false"
+							action="#{listePrefereMdgbean.selectClientAjoutFromDialog(client)}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</h:panelGroup>
+	</div>
+</h:body>
+
+</html>

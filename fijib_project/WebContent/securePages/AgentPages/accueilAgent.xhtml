@@ -1,0 +1,427 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" template="TemplateAgent.xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<ui:define name="contenu">
+		<style type="text/css">
+.ui-menu .ui-menu-parent .ui-menu-child {
+	display: none;
+	width: 370px;
+	padding: 0.3em;
+	position: absolute;
+	margin: 0;
+	outline: 0;
+	line-height: 1.3;
+	text-decoration: none;
+	font-size: 100%;
+	list-style: none;
+}
+</style>
+		<script type="text/javascript">
+			$('a').removeClass('selected');
+			$('#acc a').addClass('selected');
+		</script>
+
+
+		<script src="http://maps.google.com/maps/api/js?sensor=true|false"
+			type="text/javascript"></script>
+		<div class="row ">
+			<div class="col-md-3">
+				<h:form>
+
+					<p:tieredMenu style="width:272px;background :#627CB6">
+						<p:menuitem value="Accueil"
+							actionListener="#{tableauBordMgdBean.affAccueil}"
+							update=":update" icon="ui-icon-newwin" />
+						<p:separator />
+						<p:submenu label="Consulter" icon="ui-icon-home"
+							style="color:#fff">
+							<p:menuitem value="Rechercher les envois d'un client"
+								actionListener="#{tableauBordMgdBean.affEnvois}"
+								update=" :update" icon="ui-icon-list" style="width:260px" />
+							<p:menuitem value="Rechercher les retraits d'un client"
+								actionListener="#{tableauBordMgdBean.affRetraits}"
+								update=":update" icon="ui-icon-list" style="width:260px" />
+						</p:submenu>
+						<p:separator />
+
+						<p:menuitem value="Visualiser l'historique de l'agence"
+							actionListener="#{tableauBordMgdBean.affHistEnvois}"
+							update=":update" icon="ui-icon-home" />
+						<p:separator />
+
+						<p:menuitem value="Messages"
+							actionListener="#{tableauBordMgdBean.affMessages}"
+							update=":update" icon="ui-icon-newwin" />
+
+
+						<p:separator />
+						<p:submenu label="Services" icon="ui-icon-extlink">
+							<p:menuitem value="Calcul frais" icon="ui-icon-list"
+								actionListener="#{tableauBordMgdBean.affCalFrais}"
+								update=":update" />
+							<p:menuitem value="Chercher une agence"
+								actionListener="#{tableauBordMgdBean.affAgences}"
+								update=":update" icon="ui-icon-list" />
+						</p:submenu>
+					</p:tieredMenu>
+				</h:form>
+			</div>
+
+
+			<div class="col-md-9 well1">
+				<h:panelGroup id="update">
+					<h:panelGroup rendered="#{tableauBordMgdBean.x==1}">
+						<div class="accordion" id="leftMenu1">
+							<div class="accordion-group">
+								<div class="accordion-heading" align="center">
+									<a class="accordion-toggle" data-toggle="collapse"
+										data-parent="#leftMenu" href="#"> <i class="icon-home"></i>
+										Accueil
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="row " style="width: 100%; margin-left: 0px;">
+							<p:panel>
+						Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+						accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+						quae ab illo inventore veritatis et quasi architecto beatae vitae
+						dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+						aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+						eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
+						est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+						velit, sed quia non numquam eius modi tempora incidunt ut labore
+						et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima
+						veniam, quis nostrum exercitationem ullam corporis suscipit
+						laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
+						vel eum iure reprehenderit qui in ea voluptate velit esse quam
+						nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
+						voluptas nulla pariatur?</p:panel>
+						</div>
+					</h:panelGroup>
+
+
+
+					<h:panelGroup
+						rendered="#{tableauBordMgdBean.x==2 or tableauBordMgdBean.x==3}">
+						<div class="accordion" id="leftMenu1">
+							<div class="accordion-group">
+								<div class="accordion-heading" align="center">
+									<a class="accordion-toggle" data-toggle="collapse"
+										data-parent="#leftMenu" href="#"> <i class="icon-home"></i>
+										Tableau de bord
+									</a>
+								</div>
+							</div>
+						</div>
+						<p:panel rendered="#{tableauBordMgdBean.x==2}">
+							<h:form>
+								<p:outputLabel
+									value="Chercher les envois d'un client par CIN : " for="cin" />
+								<h:outputText value="&#160;" />
+								<p:inputText id="cin" value="#{tableauBordMgdBean.cin}">
+								</p:inputText>
+								<h:outputText value="&#160;" />
+								<p:commandButton value="Send"
+									actionListener="#{tableauBordMgdBean.getListEnvois}"
+									styleClass="ui-priority-primary" update=":update"
+									style="width:110px;height:35px" />
+							</h:form>
+
+
+							<p:panel rendered="#{tableauBordMgdBean.etat}" header="Resultat">
+								<h:form>
+
+									<p:dataTable var="envoi" id="envoi"
+										value="#{tableauBordMgdBean.listEnvois}"
+										paginatorTemplate="  " paginator="true" rows="10"
+										style="margin-bottom:20px">
+
+										<p:column>
+											<f:facet name="header">
+												<h:outputText value="cin" />
+											</f:facet>
+											<p:outputLabel value="#{envoi.clientByCliCinEnv.cin}"></p:outputLabel>
+										</p:column>
+										<p:column>
+											<f:facet name="header">
+												<h:outputText value="nom et prenom" />
+											</f:facet>
+											<p:outputLabel
+												value="#{envoi.clientByCliCinEnv.firstName} #{envoi.clientByCliCinEnv.lastName}"></p:outputLabel>
+										</p:column>
+										<p:column>
+											<f:facet name="header">
+												<h:outputText value="montant" />
+											</f:facet>
+											<p:outputLabel value="#{envoi.montant} €"></p:outputLabel>
+										</p:column>
+										<p:column style="width: 200px">
+											<f:facet name="header">
+												<h:outputText value="date envoi" />
+											</f:facet>
+											<p:outputLabel value="#{envoi.dateEnv}"></p:outputLabel>
+										</p:column>
+										<p:column>
+											<f:facet name="header">
+												<h:outputText value="cin bénéfiçaire" />
+											</f:facet>
+											<p:outputLabel value="#{envoi.clientByCinBene.cin}"></p:outputLabel>
+										</p:column>
+
+										<f:facet name="footer"
+											style="margin-bottom:10px;border-left= :0px">
+											<h:commandLink>
+												<h:graphicImage library="images" name="excel.png" width="24"></h:graphicImage>
+												<p:dataExporter type="xls" target="envoi" fileName="envoi" />
+											</h:commandLink>
+
+											<h:commandLink>
+												<h:graphicImage library="images" name="pdf.png" width="24"></h:graphicImage>
+												<p:dataExporter type="pdf" target="envoi" fileName="envoi" />
+											</h:commandLink>
+
+											<h:commandLink>
+												<p:graphicImage library="images" name="csv.png" width="24" />
+												<p:dataExporter type="csv" target="envoi" fileName="envoi" />
+											</h:commandLink>
+
+											<h:commandLink>
+												<p:graphicImage library="images" name="xml.png" width="24" />
+												<p:dataExporter type="xml" target="envoi" fileName="envoi" />
+											</h:commandLink>
+										</f:facet>
+									</p:dataTable>
+
+								</h:form>
+							</p:panel>
+						</p:panel>
+
+
+
+						<p:panel rendered="#{tableauBordMgdBean.x==3}">
+							<h:form>
+								<p:outputLabel
+									value="Chercher les retraits d'un client par CIN : " for="cin" />
+								<h:outputText value="&#160;" />
+								<p:inputText id="cin" value="#{tableauBordMgdBean.cin}">
+								</p:inputText>
+								<h:outputText value="&#160;" />
+								<p:commandButton value="Send"
+									actionListener="#{tableauBordMgdBean.getListRetraits}"
+									styleClass="ui-priority-primary" update=":update"
+									style="width:110px;height:35px" />
+							</h:form>
+
+
+							<p:panel rendered="#{tableauBordMgdBean.etat}" header="Resultat">
+								<h:form>
+									<p:dataTable var="ret" id="retrait"
+										value="#{tableauBordMgdBean.listRetraits}"
+										paginatorTemplate="  " paginator="true" rows="10"
+										style="margin-bottom:20px">
+										<p:column>
+											<f:facet name="header">
+												<h:outputText value="cin" />
+											</f:facet>
+											<p:outputLabel
+												value="#{ret.envoiInscrit.clientByCinBene.cin}"></p:outputLabel>
+										</p:column>
+										<p:column>
+											<f:facet name="header">
+												<h:outputText value="nom et prenom" />
+											</f:facet>
+											<p:outputLabel
+												value="#{ret.envoiInscrit.clientByCinBene.firstName} #{ret.envoiInscrit.clientByCinBene.lastName}"></p:outputLabel>
+										</p:column>
+										<p:column>
+											<f:facet name="header">
+												<h:outputText value="montant" />
+											</f:facet>
+											<p:outputLabel value="#{ret.montant} €"></p:outputLabel>
+										</p:column>
+										<p:column style="width: 200px">
+											<f:facet name="header">
+												<h:outputText value="date retrait" />
+											</f:facet>
+											<p:outputLabel value="#{ret.dateRetrait}"></p:outputLabel>
+										</p:column>
+
+										<p:column>
+											<f:facet name="header">
+												<h:outputText value="cin envoyeur" />
+											</f:facet>
+											<p:outputLabel
+												value="#{ret.envoiInscrit.clientByCliCinEnv.cin}"></p:outputLabel>
+										</p:column>
+
+
+
+
+
+										<f:facet name="footer"
+											style="margin-bottom:10px;border-left= :0px">
+											<h:commandLink>
+												<h:graphicImage library="images" name="excel.png" width="24"></h:graphicImage>
+												<p:dataExporter type="xls" target="retrait"
+													fileName="retrait" />
+											</h:commandLink>
+
+											<h:commandLink>
+												<h:graphicImage library="images" name="pdf.png" width="24"></h:graphicImage>
+												<p:dataExporter type="pdf" target="retrait"
+													fileName="retrait" />
+											</h:commandLink>
+
+											<h:commandLink>
+												<p:graphicImage library="images" name="csv.png" width="24" />
+												<p:dataExporter type="csv" target="retrait"
+													fileName="retrait" />
+											</h:commandLink>
+
+											<h:commandLink>
+												<p:graphicImage library="images" name="xml.png" width="24" />
+												<p:dataExporter type="xml" target="retrait"
+													fileName="retrait" />
+											</h:commandLink>
+										</f:facet>
+									</p:dataTable>
+
+								</h:form>
+							</p:panel>
+						</p:panel>
+					</h:panelGroup>
+
+
+					<p:panel
+						rendered="#{tableauBordMgdBean.x==7 or tableauBordMgdBean.x==8}">
+
+						<div class="accordion" id="leftMenu1">
+							<div class="accordion-group">
+								<div class="accordion-heading" align="center">
+									<a class="accordion-toggle" data-toggle="collapse"
+										data-parent="#leftMenu" href="#"> <i class="icon-list"></i>
+										Services
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<h:form rendered="#{tableauBordMgdBean.x==7}">
+							<p:panelGrid>
+								<f:facet name="header">
+									<p:row>
+										<p:column colspan="7">
+											<p:outputLabel>Calcul des frais</p:outputLabel>
+										</p:column>
+									</p:row>
+								</f:facet>
+								<p:row>
+									<p:column>
+										<p:outputLabel style="width:200px">Montant</p:outputLabel>
+									</p:column>
+
+									<p:column>
+										<p:inputText value="#{agentManagedBean.envoiDto.montant}"
+											id="montant" required="true">
+											<p:ajax event="keyup" update="frais total "
+												listener="#{agentManagedBean.calculFrais}" />
+										</p:inputText>
+										<p:outputLabel>€</p:outputLabel>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+							<p:separator />
+							<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-6">
+										<p:outputLabel>Frais :</p:outputLabel>
+										<p:outputLabel value="#{agentManagedBean.envoiDto.frais} €"
+											id="frais"></p:outputLabel>
+									</div>
+									<div class="col-md-6">
+										<p:outputLabel>Total :</p:outputLabel>
+										<p:outputLabel
+											value="#{agentManagedBean.envoiDto.montant+agentManagedBean.envoiDto.frais} €"
+											id="total"></p:outputLabel>
+									</div>
+								</div>
+							</div>
+							<p:separator />
+						</h:form>
+					</p:panel>
+					<p:panel rendered="#{tableauBordMgdBean.x==8}"
+						header="Chercher une Agence">
+						<p:gmap center="32.381542, -10.002893" zoom="6" type="hybrid"
+							style="width:800px;height:450px" model="#{mapMgdBean.model}" />
+					</p:panel>
+
+					<p:panel rendered="#{tableauBordMgdBean.x==6}">
+
+						<div class="accordion" id="leftMenu1">
+							<div class="accordion-group">
+								<div class="accordion-heading" align="center">
+									<a class="accordion-toggle" data-toggle="collapse"
+										data-parent="#leftMenu" href="#"> <i class="icon-inbox"></i>
+										Messages
+									</a>
+								</div>
+							</div>
+						</div>
+
+					</p:panel>
+
+
+					<p:panel
+						rendered="#{tableauBordMgdBean.x==4 or tableauBordMgdBean.x==5}">
+
+						<div class="accordion" id="leftMenu1">
+							<div class="accordion-group">
+								<div class="accordion-heading" align="center">
+									<a class="accordion-toggle" data-toggle="collapse"
+										data-parent="#leftMenu" href="#"> <i class="icon-inbox"></i>
+										Historique de l'agence
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<p:panel rendered="#{tableauBordMgdBean.x==4}">
+							<h:panelGrid columns="1" columnClasses="left,right"
+								style="width:100%">
+								
+
+								<p:chart type="bar" model="#{charthistoriqueMgdBean.barModel}"
+									style="height:400px;" />
+									<p:chart type="bar"
+									model="#{charthistoriqueMgdBean.horizontalBarModel}"
+									style="height:400px" />
+							</h:panelGrid>
+						</p:panel>
+
+						<p:panel rendered="#{tableauBordMgdBean.x==5}">
+							<h:panelGrid columns="2" columnClasses="left,right"
+								style="width:100%">
+								<p:chart type="line" model="#{chartView.animatedModel1}"
+									style="width:750px;height:500px" />
+
+							</h:panelGrid>
+						</p:panel>
+
+
+					</p:panel>
+
+
+
+				</h:panelGroup>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			
+		</script>
+	</ui:define>
+</ui:composition>

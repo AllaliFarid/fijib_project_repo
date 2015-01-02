@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Let's create a PDF!</title>
+	<style type="text/css">
+	body {
+	font-family: Helvetica;
+	width: 700px;
+	margin: 0 auto;
+	 
+	background-color: #D7D6D6;
+}
+section {
+	border-radius: 2px 2px 2px 2px;
+	box-shadow: -16px 0 20px -20px #FFF, 16px 0 20px -20px #FFF;
+}
+
+h1,footer {
+	color: #FFF;
+}
+
+#dayon_link {
+	display: inline-block;
+	height: 95px;
+	width: 100%;
+}
+
+#posi {
+	padding-left: 400px;
+	width:
+}
+</style>
+
+</h:head>
+<h:body>
+	<section>
+<div id="dayon_link" align="left">
+				<h:graphicImage library="images" name="headerRecu.jpg"></h:graphicImage>
+			</div>
+		 
+		<h2 align="center">Reçu de transfert</h2>
+		<p:separator></p:separator>
+
+		<table style="width: 700px; height: 35px">
+			<tr>
+				<td><p:outputLabel value="Code du transfert : #{agentManagedBean.codeTransfert}"></p:outputLabel></td>
+				<td align="right"><p:outputLabel
+						value="Date du transfert :#{agentManagedBean.date}"></p:outputLabel></td>
+			</tr>
+		</table>
+		 
+		<h4 align="center"><p:outputLabel >Informations du transfert :</p:outputLabel></h4>
+		<p:panelGrid style="width: 700px"> 
+		 
+			<p:row>
+				<p:column>
+					<p:outputLabel>Agence </p:outputLabel>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="#{agentManagedBean.agence}"></p:outputLabel>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel>Date transfert </p:outputLabel>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="#{agentManagedBean.date}"></p:outputLabel>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel>Intitulé </p:outputLabel>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="#{agentManagedBean.intitule}"></p:outputLabel>
+				</p:column>
+			</p:row>
+			<p:row>
+			<p:column>CIN Client</p:column>
+				<p:column>
+					<p:outputLabel value="#{agentManagedBean.client.cin}"></p:outputLabel>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>CIN bénéfiçaire </p:column>
+				<p:column>
+					<p:outputLabel value="#{agentManagedBean.envoiDto.cin_beneficaire}"></p:outputLabel>
+				</p:column>
+			</p:row>
+
+		</p:panelGrid>
+		<p:separator></p:separator>
+       <p:panelGrid style="width: 700px"> 
+		 
+			<p:row>
+				<p:column>type de paiment</p:column>
+				<p:column>espèce</p:column>
+				</p:row>
+				</p:panelGrid>
+				
+			<h4><p:outputLabel>Détails de paiment</p:outputLabel> </h4>	
+				<p:separator></p:separator>
+				
+		<p:panelGrid style="width: 700px"> 
+			<p:row>
+				<p:column>Montant</p:column>
+				<p:column><p:outputLabel value="#{agentManagedBean.envoiDto.montant}"></p:outputLabel> </p:column>
+				</p:row>
+				<p:row>
+				  <p:column><p:outputLabel>Frais</p:outputLabel></p:column>
+				  <p:column><p:outputLabel value="#{agentManagedBean.envoiDto.frais}"></p:outputLabel> </p:column>
+				</p:row>
+				</p:panelGrid>
+				
+				<table style="width: 700px; height: 35px">
+			<tr><td style="width: 360px" ></td>
+				<td align="left"><p:outputLabel value="Total : #{agentManagedBean.envoiDto.frais + agentManagedBean.envoiDto.montant}"></p:outputLabel></td>
+			</tr>
+		</table>
+	</section>
+</h:body>
+</html>

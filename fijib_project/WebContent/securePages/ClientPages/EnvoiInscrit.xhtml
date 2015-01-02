@@ -1,0 +1,175 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="templateClient.xhtml">
+	<ui:define name="contenu">
+		<script type="text/javascript">
+$('a').removeClass('selected');
+$('#env a').addClass('selected');
+</script>
+		<div>#{envoiBean.initEnvoi()}</div>
+		<div>#{envoiBean.settTitre()}</div>
+		<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" />
+		<div class="hya"></div>
+		<div class="row headJumbo">
+			<div class="col-md-12">
+				<p>#{envoiBean.titre}</p>
+			</div>
+		</div>
+		<div class="row jumbobody">
+
+			<div class="col-md-12">
+				<h:form>
+					<div class="row">
+						<h4>Détails de votre Transfért :</h4>
+						<div class="col-md-4">
+							<p:outputLabel
+								value="Montant du Transfért : #{envoiBean.infoEnvoiNs.montant} €"></p:outputLabel>
+						</div>
+						<div class="col-md-4">
+							<p:outputLabel
+								value="frais du Transfért : #{envoiBean.infoEnvoiNs.frais} €"></p:outputLabel>
+						</div>
+						<div class="col-md-4">
+							<p:outputLabel
+								value="Code du Virement Bancaire : #{envoiBean.infoEnvoiNs.codeSourceEnvoi}"></p:outputLabel>
+						</div>
+					</div>
+					<div class="row">
+						<div class="hya"></div>
+						<p:separator></p:separator>
+					</div>
+				</h:form>
+
+				<div class="row">
+					<div class="col-md-5">
+						<h:form>
+							<p:panel>
+								<div class="row">
+									<div class="col-md-3">
+										<p:outputLabel for="cinBenef" value="CIN du Bénéficiare:" />
+									</div>
+									<div class="col-md-9">
+										<p:inputText id="cinBenef" value="#{envoiBean.inputRecherche}">
+											<p:ajax event="blur" update=":terz cinBenef"
+												listener="#{envoiBean.recherche}" />
+										</p:inputText>
+										<p:message for="cinBenef" />
+									</div>
+								</div>
+							</p:panel>
+						</h:form>
+					</div>
+
+					<div class="col-md-2">
+						<p:panel>
+							<center>
+								<p:outputLabel value="OU"></p:outputLabel>
+							</center>
+						</p:panel>
+					</div>
+
+					<div class="col-md-5">
+						<h:form>
+							<p:panel>
+								<div class="row">
+
+									<div class="col-md-4">
+										<p:outputLabel value="Sélectionner un bénéficiaire" />
+									</div>
+									<div class="col-md-8">
+										<p:commandButton value="liste des bénéficiaires préférés"
+											actionListener="#{envoiBean.selectionner}">
+											<p:ajax event="dialogReturn" update=":terz"
+												listener="#{envoiBean.onClientChosen}" />
+										</p:commandButton>
+									</div>
+
+								</div>
+							</p:panel>
+						</h:form>
+					</div>
+				</div>
+
+				<div class="hya"></div>
+
+				<h:form id="terz">
+					<p:panel>
+						<h4>Informations du bénéficiaire :</h4>
+						<p:separator></p:separator>
+						<div class="hya"></div>
+						<div class="row">
+
+							<div class="col-md-4">
+								<p:outputLabel
+									value="Cin du bénéficiaire : #{envoiBean.client.cin}"></p:outputLabel>
+							</div>
+							<div class="col-md-4">
+								<p:outputLabel
+									value="prénom du bénéficiaire : #{envoiBean.client.firstName}"></p:outputLabel>
+							</div>
+							<div class="col-md-4">
+								<p:outputLabel
+									value="Nom du bénéficiaire : #{envoiBean.client.lastName}"></p:outputLabel>
+							</div>
+						</div>
+
+						<div class="hya"></div>
+						<div class="row">
+
+							<div class="col-md-4">
+								<p:outputLabel value="Email : #{envoiBean.client.email}"></p:outputLabel>
+							</div>
+							<div class="col-md-4">
+								<p:outputLabel
+									value="date de naissance : #{envoiBean.client.dateNaissance}"></p:outputLabel>
+							</div>
+							<div class="col-md-4">
+								<p:outputLabel
+									value="Adresse : #{envoiBean.client.adresseClient}"></p:outputLabel>
+							</div>
+						</div>
+					</p:panel>
+				</h:form>
+
+				<h:form id="envoi">
+					<p:panel>
+						<div class="row">
+							<p:outputLabel value="Déstination : "></p:outputLabel>
+							<p:selectOneRadio id="destination"
+								value="#{envoiBean.destination}" required="true">
+								<f:selectItem itemLabel=" En personne" itemValue="personne" />
+								<f:selectItem itemLabel=" Sur Compte Bancaire"
+									itemValue="compte" />
+							</p:selectOneRadio>
+							<p:message for="destination"/>
+						</div>
+					</p:panel>
+					
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-4">
+						</div>
+						<div class="col-md-2">
+							<center><p:commandButton value="Envoyer l'argent" action="#{envoiBean.envoiArgentInscrit}" ajax="false"></p:commandButton></center>
+						</div>
+						<div class="col-md-2">
+							<center>
+								<p:button outcome="accEnvoi" value="Annuler">
+								</p:button>
+							</center>
+						</div>
+						<div class="col-md-4">
+						
+						</div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+
+
+</ui:composition>

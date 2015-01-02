@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><ui:insert name="title">Fijib</ui:insert></title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="styleo.css" />
+</h:head>
+
+<h:body>
+ 	
+	<div class="navbar navbar-defaultx navbar-static-top">
+
+		<button class="navbar-toggle" data-toggle="collapse"
+			data-target=".navHeaderCollapse">
+			<span class="icon-bar barex"></span> <span class="icon-bar barex"></span>
+			<span class="icon-bar barex"></span>
+		</button>
+
+		<div class="pull-left">
+			<h:graphicImage library="images" name="header.jpg"></h:graphicImage>
+		</div>
+
+		<div
+			class="container collapse navbar-collapse navHeaderCollapse pull-right  " style="margin-right: 100px;margin-top: 40px;">
+			 <h:form>
+			<ul class="nav nav-tabs">
+				<li id="acc"  ><p:link  outcome="accueilAgent"
+						value="Accueil" /></li>
+						<li id="env"><p:link outcome="Envoi" value="Envoi" /></li>
+				<li id="ret"><p:link outcome="Retrait" value="Retarit" />
+				</li>
+				
+				<li id="ser" class="dropdown"><a href="#" class="dropdown-toggle "
+					data-toggle="dropdown">Services <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+					  	  <li> <p:commandLink  id="nonAjax1"
+									action="#{tableauBordMgdBean.affCalFrais}"
+								update=":update" ajax="false">
+									<h:outputText value="calculer les frais" />
+								</p:commandLink>  </li>
+						<li>
+						<p:commandLink id="nonAj"
+								 	action="#{tableauBordMgdBean.affAgences}"
+								update=":update" ajax="false">
+									<h:outputText value="rechercher agence" />
+								</p:commandLink>
+						  </li>  
+					</ul></li>
+				<li id="aid" class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown">aide <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Qui sommes nous?</a></li>
+						<li><a href="#">FAQ</a></li>
+						<li><a href="#">Contactez nous</a></li>
+					</ul></li>
+				<li><div  style="margin-left : 20px; margin-top : 12px">
+						<h:commandLink>
+							<p:graphicImage id="c" library="images" name="personal.png"
+								width="25" height="25">
+							</p:graphicImage>
+						</h:commandLink>
+					</div></li>
+
+				<li><div style="margin-left : 20px; margin-top : 12px">
+						<h:commandLink action="#{loginMgmtBean.logout}">
+							<p:graphicImage id="city" library="images" name="shutdown.png"
+								width="25" height="25">
+							</p:graphicImage>
+						</h:commandLink>
+					</div></li>
+			</ul> </h:form>
+		</div>
+	</div>
+
+
+
+
+	<div class="container">
+
+		<div class="row" style="height: 30px"></div>
+
+		<div class="row jumboMenu">
+			<div class="row">
+				<div class="col-md-3 col-md-push-0">
+					<div class="well" style="background-color: #fff">
+						<span style="font-weight: bold">Bienvenue : </span>
+						<p:outputLabel style="color: #ff5522"
+							value="#{infoAgentMgdBean.agent.firstName}"></p:outputLabel>
+						<span style="font-weight: bold"> </span>
+						<p:outputLabel style="color: #ff5522"
+							value=" #{infoAgentMgdBean.agent.lastName}"></p:outputLabel>
+					</div>
+				</div>
+				<div class="col-md-3 col-md-push-0">
+					<div class="well" style="background-color: #fff">
+						<span style="font-weight: bold">Compte : </span>
+						<p:outputLabel style="color: #ff5522"
+							value="Agent"></p:outputLabel>
+					</div>
+				</div>
+				<div class="col-md-3 col-md-push-0">
+					<div class="well" style="background-color: #fff">
+						<p:outputLabel value="Heure local : " />
+						<span style="font-weight: bold; color: #ff5522" id="date_heure"></span>
+					</div>
+				</div>
+				<div class="col-md-3 col-md-push-0">
+					<div class="well" style="background-color: #fff">
+						<span><p:outputLabel>Notifications :</p:outputLabel></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="height: 30px"></div>
+		
+		<ui:insert name="ent"></ui:insert>
+
+		<ui:insert name="contenu"></ui:insert>
+
+
+	</div>
+
+	<div class="container hy"></div>
+	<div class="navbar navbar-default-foot navbar-static-bottom">
+		<div class="container">
+			<span class="navbar-text">Fijib copyright © 2014.</span>
+			<center>
+				<p class="navbar-text">
+					<a href="#"> Accueil </a>/<a href="#"> Inscription </a>/<a href="#">
+						Conditions d'utilisation </a>/ <a href="#"> Calculer frais </a>/<a
+						href="#"> Agences </a>/<a href="#"> Qui sommes nous? </a>/<a
+						href="#"> FAQ </a>/ <a href="#"> Contactez nous </a>
+				</p>
+			</center>
+		</div>
+	</div>
+	<h:outputScript library="js" name="action.js"></h:outputScript>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+
+	<script type="text/javascript">
+		window.onload = date_heure('date_heure');
+	</script>
+
+</h:body>
+</html>

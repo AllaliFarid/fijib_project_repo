@@ -1,0 +1,105 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/templateClient.xhtml">
+
+	<ui:define name="contenu">
+		<div>#{envoiBean.selectType()}</div>
+		<div>#{envoiBean.initType()}</div>
+		<div>#{envoiBean.settTitre()}</div>
+		<div>#{envoiBean.initInfoEnvoiNs()}</div>
+		<div class="hya"></div>
+		<div class="row">
+			<div class="col-md-12">
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" />
+			</div>
+		</div>
+		<div class="row headJumbo">
+			<div class="col-md-12">
+				<p>#{envoiBean.titre} :: Par Virement
+					Bancaire</p>
+			</div>
+		</div>
+		<div class="row jumbobody">
+			<center>
+				<h:graphicImage library="images" name="bank.png"></h:graphicImage>
+				<p:separator style="width: 80px"></p:separator>
+			</center>
+			<h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+				nisi ut aliquip ex ea commodo consequat.</h4>
+		</div>
+		<div class="row jumbobody">
+			<div class="col-md-12">
+				<h:form>
+					<div class="row">
+						<div class="col-md-6">
+
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="montant" value="Montant du Transfert:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="montant"
+										value="#{envoiBean.infoEnvoiNs.montant}" required="true">
+										
+										<p:ajax event="keyup" update="frais total" listener="#{envoiBean.calculFrais}"/>	
+									</p:inputText> <span>€</span>
+									<p:message for="montant" />
+								</div>
+							</div>
+
+							<div class="hya"></div>
+							
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="numVirement" value="Numéro du Virement Bancaire:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="numVirement"
+										value="#{envoiBean.infoEnvoiNs.codeSourceEnvoi}" required="true" />
+									<p:message for="numVirement" />
+								</div>
+							</div>
+
+						</div>
+
+						<div class="col-md-6">
+
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="frais" value="Frais du Transfert:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="frais" readonly="true"
+										value="#{envoiBean.infoEnvoiNs.frais}"/>
+									<span>€</span>
+									<p:message for="frais" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<p:separator></p:separator>
+
+					<div class="row">
+						<div class="col-md-4">
+							<p:outputLabel id="total" value="Total : #{envoiBean.infoEnvoiNs.montant+envoiBean.infoEnvoiNs.frais} €">
+							</p:outputLabel>
+						</div>
+						<div class="col-md-4">
+							<center>
+								<p:commandButton action="#{envoiBean.setVirement}" value="suivant >" ajax="false"></p:commandButton>
+							</center>
+						</div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+
+
+</ui:composition>

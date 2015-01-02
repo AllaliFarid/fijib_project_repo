@@ -1,0 +1,316 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" template="TemplateAgent.xhtml" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<ui:define name="ent">
+	<script type="text/javascript">
+$('a').removeClass('selected');
+$('#env a').addClass('selected');
+</script>
+	
+		<div class="row well1">
+			<p:panelGrid columns="4" cellpadding="5">
+				<h:form>
+					<p:outputLabel value="Chercher client par CIN : " for="cin" />
+					<h:outputText value="&#160;" />
+					<p:autoComplete id="cin" value="#{agentManagedBean.client.cin}"
+						completeMethod="#{agentManagedBean.completeText}" />
+					<h:outputText value="&#160;" />
+					<p:commandButton value="Send"
+						actionListener="#{agentManagedBean.getClientByCin}"
+						styleClass="ui-priority-primary" update=":form,:form2"
+						style="width:110px;height:35px" />
+ 				</h:form>
+						<h:panelGroup id="pdf"  >
+			    <h:form rendered="#{agentManagedBean.etatRecu}">
+                  <p:commandButton  value="Télécharger reçu en PDF"  ajax="false"  action="#{agentManagedBean.createReçuPDF}"></p:commandButton>					 
+				</h:form>
+			</h:panelGroup>			
+			</p:panelGrid>
+		
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+		</div>
+
+	</ui:define>
+	<ui:define name="contenu">
+		<h:panelGroup id="form2">
+			<h:panelGroup rendered="#{agentManagedBean.etatform2}">
+				<div class="row">
+					<div class="col-md-12" align="center">
+						<div class="row headJumbo" align="center">
+							<p:outputLabel style="color:#fff">Execution d'envoi d'argent par l'agent</p:outputLabel>
+						</div>
+					</div>
+				</div>
+
+				<div class="row jumbobody1">
+					<div class="col-md-12">
+						<div class="col-md-6" align="center">
+
+
+							<p:panelGrid columns="2" rendered="#{agentManagedBean.etatform2}" style="width:350px">
+								<f:facet name="header">
+									<p:outputLabel>info client expéditeur</p:outputLabel>
+								</f:facet>
+
+								<p:outputLabel>cin</p:outputLabel>
+								<p:outputLabel value="#{agentManagedBean.client.cin}"></p:outputLabel>
+								<p:outputLabel>nom</p:outputLabel>
+								<p:outputLabel value="#{agentManagedBean.client.firstName}"></p:outputLabel>
+								<p:outputLabel>prenom</p:outputLabel>
+								<p:outputLabel value="#{agentManagedBean.client.lastName}"></p:outputLabel>
+								<p:outputLabel>ville</p:outputLabel>
+								<p:outputLabel value="#{agentManagedBean.client.ville}"></p:outputLabel>
+								<p:outputLabel>date naissance</p:outputLabel>
+								<p:outputLabel value="#{agentManagedBean.client.dateNaissance}"></p:outputLabel>
+								<p:outputLabel>adresse client</p:outputLabel>
+								<p:outputLabel value="#{agentManagedBean.client.adresseClient}"></p:outputLabel>
+								<p:outputLabel>Tél </p:outputLabel>
+								<p:outputLabel value="#{agentManagedBean.client.tel}"></p:outputLabel>
+							</p:panelGrid>
+
+						</div>
+
+						<div class="col-md-6" align="center">
+							<h:form>
+								<p:panelGrid>
+									<f:facet name="header">
+										<p:row>
+											<p:column colspan="7">
+												<p:outputLabel>info d'envoi </p:outputLabel>
+											</p:column>
+										</p:row>
+									</f:facet>
+									<p:row>
+										<p:column>
+											<p:outputLabel>montant</p:outputLabel>
+										</p:column>
+										<p:column>
+											<p:inputText value="#{agentManagedBean.envoiDto.montant}"
+												id="montant" required="true">
+												<p:ajax event="keyup" update="frais total"
+													listener="#{agentManagedBean.calculFrais}" />
+											</p:inputText>
+											<p:outputLabel>€</p:outputLabel>
+										</p:column>
+
+									</p:row>
+									<p:row>
+										<p:column>
+											<p:outputLabel>CIN bénéfiçaire</p:outputLabel>
+										</p:column>
+										<p:column>
+											<p:inputText
+												value="#{agentManagedBean.envoiDto.cin_beneficaire}"
+												required="true" id="cin"></p:inputText>
+										</p:column>
+									</p:row>
+									<p:row>
+										<p:column>
+											<p:outputLabel>type d'envoi</p:outputLabel>
+										</p:column>
+										<p:column>
+											<h:selectOneMenu id="txt3"
+												value="#{agentManagedBean.envoiDto.aunePersonne}"
+												style="width:174px;height:30px">
+
+												<f:selectItem itemLabel="à une personne" itemValue="true" />
+												<f:selectItem itemLabel="à un compte" itemValue="false" />
+
+											</h:selectOneMenu>
+										</p:column>
+									</p:row>
+
+									<f:facet name="footer">
+										<p:row>
+											<p:column colspan="7">
+												<div align="center">
+													<p:commandButton value="valider"
+														actionListener="#{agentManagedBean.envoyer}"
+														update=":form,:form2,:pdf" styleClass="ui-priority-primary"
+														style="width:100px;height:30px"></p:commandButton>
+													<p:commandButton type="reset" value="reset"
+														style="width:100px;height:30px"></p:commandButton>
+												</div>
+											</p:column>
+										</p:row>
+									</f:facet>
+								</p:panelGrid>
+								<p:separator></p:separator>
+								<div class="col-md-12">
+									<div class="row">
+										<div class="col-md-6">
+											<p:outputLabel>Frais :</p:outputLabel>
+											<p:outputLabel value="#{agentManagedBean.envoiDto.frais} €"
+												id="frais"></p:outputLabel>
+										</div>
+										<div class="col-md-6">
+											<p:outputLabel>Total :</p:outputLabel>
+											<p:outputLabel
+												value="#{agentManagedBean.envoiDto.montant+agentManagedBean.envoiDto.frais} €"
+												id="total"></p:outputLabel>
+										</div>
+									</div>
+								</div>
+							</h:form>
+						</div>
+
+					</div>
+				</div>
+			</h:panelGroup>
+		</h:panelGroup>
+
+
+		<h:panelGroup id="form">
+			<h:form class="padFormX" rendered="#{agentManagedBean.etatform1}">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row headJumbo" align="center">
+							<p:outputLabel style="color : #fff">Inscription du client</p:outputLabel>
+						</div>
+					</div>
+				</div>
+
+				<div class="row jumbobody1">
+					<div class="col-md-12">
+						<div class="col-md-6">
+
+							<p:separator></p:separator>
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="cinX" value="CIN:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="cinX" required="true"
+										value="#{agentManagedBean.client.cin}"></p:inputText>
+									<p:message for="cinX" />
+								</div>
+							</div>
+
+							<p:separator></p:separator>
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="nomX" value="Nom:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="nomX" required="true"
+										value="#{agentManagedBean.client.lastName}"></p:inputText>
+									<p:message for="nomX" />
+								</div>
+							</div>
+
+
+							<p:separator></p:separator>
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="prenomX" value="Prénom:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="prenomX" required="true"
+										value="#{agentManagedBean.client.firstName}"></p:inputText>
+									<p:message for="prenomX" />
+								</div>
+							</div>
+							<p:separator></p:separator>
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="addresseX" value="Adresse:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="addresseX" required="true"
+										value="#{agentManagedBean.client.adresseClient}"></p:inputText>
+									<p:message for="addresseX" />
+								</div>
+							</div>
+
+
+							<p:separator></p:separator>
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="villeX" value="Ville:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="villeX" required="true"
+										value="#{agentManagedBean.client.ville}"></p:inputText>
+									<p:message for="villeX" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+
+
+							<p:separator></p:separator>
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="codePostale" value="Code Postale:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="codePostale"
+										value="#{agentManagedBean.client.codePostale}"></p:inputText>
+									<p:message for="codePostale" />
+								</div>
+							</div>
+
+							<p:separator></p:separator>
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="tel" value="Tel:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="tel" value="#{agentManagedBean.client.tel}"></p:inputText>
+									<p:message for="tel" />
+								</div>
+							</div>
+
+
+							<p:separator></p:separator>
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="popup" value="Date de naissance:" />
+								</div>
+								<div class="col-md-9">
+									<p:calendar id="popup" required="true"
+										value="#{agentManagedBean.client.dateNaissance}" />
+									<p:message for="popup" />
+								</div>
+							</div>
+
+
+
+							<p:separator></p:separator>
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="NumCompte" value="Num de compte bancaire:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="NumCompte"
+										value="#{agentManagedBean.client.numCompteBanc}"></p:inputText>
+									<p:message for="NumCompte" />
+								</div>
+							</div>
+
+							<p:separator></p:separator>
+							<div class="row">
+								<div class="col-md-3"></div>
+								<div class="col-md-3">
+									<p:commandButton value="Valider" id="valid"
+										style="width : 180px" action="#{agentManagedBean.inscrire}"
+										ajax="false"></p:commandButton>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</h:form>
+
+		</h:panelGroup>
+
+
+
+
+	</ui:define>
+</ui:composition>

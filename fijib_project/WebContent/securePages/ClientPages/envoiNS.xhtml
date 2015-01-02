@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="templateClient.xhtml">
+
+	<ui:define name="contenu">
+	<script type="text/javascript">
+$('a').removeClass('selected');
+$('#env a').addClass('selected');
+</script>
+		<div>#{envoiBean.initEnvoi()}</div>
+		<div>#{envoiBean.settTitre()}</div>
+		<div class="hya"></div>
+		<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" />
+		<div class="row headJumbo">
+			<div class="col-md-12">
+				<p>#{envoiBean.titre}</p>
+			</div>
+		</div>
+		<div class="row jumbobody">
+
+			<div class="col-md-12">
+				<h:form>
+					<div class="row">
+						<h4>Détails de votre Transfért :</h4>
+						<div class="col-md-4">
+							<p:outputLabel value="Montant du Transfért : #{envoiBean.infoEnvoiNs.montant} €"></p:outputLabel>
+						</div>
+						<div class="col-md-4">
+							<p:outputLabel value="frais du Transfért : #{envoiBean.infoEnvoiNs.frais} €"></p:outputLabel>
+						</div>
+						<div class="col-md-4">
+							<p:outputLabel value="Code du Virement Bancaire : #{envoiBean.infoEnvoiNs.codeSourceEnvoi}"></p:outputLabel>
+						</div>
+					</div>
+					<div class="row">
+						<div class="hya"></div>
+						<p:separator></p:separator>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="cinBenef" value="CIN du Bénéficiare:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="cinBenef"
+										value="#{envoiBean.infoBenef.cin}" required="true">
+										
+										<p:ajax event="blur" listener="#{envoiBean.benefIsExist}" update="cinBenef"/>
+									</p:inputText>
+									<p:message for="cinBenef" />
+								</div>
+							</div>
+
+							<div class="hya"></div>
+
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="nomBenef" value="Nom du Bénéficiare:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="nomBenef"
+										value="#{envoiBean.infoBenef.firstName}" required="true" />
+									<p:message for="nomBenef" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+
+							<div class="row">
+								<div class="col-md-3">
+									<p:outputLabel for="prenomBenef" value="Prénom du Bénéficiare:" />
+								</div>
+								<div class="col-md-9">
+									<p:inputText id="prenomBenef"
+										value="#{envoiBean.infoBenef.lastName}" required="true" />
+									<p:message for="prenomBenef" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-4">
+						</div>
+						<div class="col-md-2">
+							<center><p:commandButton value="Envoyer l'argent"  action="#{envoiBean.envoiArgent}" ajax="false"></p:commandButton></center>
+						</div>
+						<div class="col-md-2">
+							<center>
+								<p:button outcome="accEnvoi" value="Annuler">
+								</p:button>
+							</center>
+						</div>
+						<div class="col-md-4">
+						
+						</div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+
+
+	</ui:define>
+
+
+</ui:composition>

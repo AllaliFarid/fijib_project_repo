@@ -1,0 +1,200 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/FijibTemplate.xhtml">
+	<ui:define name="title">
+		Fijib
+	</ui:define>
+
+	<ui:define name="contenu">
+	 
+<script type="text/javascript">
+$('a').removeClass('selected');
+$('#cond a').addClass('selected');
+</script>
+
+		<div class="row">
+			<div class="col-md-12">
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" />
+			</div>
+		</div>
+		<div class="col-md-12 headJumbo">
+			<div class="col-md-12">
+				<p align="center" >Inscription</p>
+			</div>
+		</div>
+		<h:form class="padFormX">
+			<div class="col-md-12   jumbobody">
+				<!-- <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/> -->
+				<!-- <div class="container jumbobody"> -->
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-3">
+							<p:outputLabel for="emailX" value="Email:" />
+						</div>
+						<div class="col-md-9">
+							<p:inputText id="emailX" validatorMessage="Invalid email format"
+								required="true" value="#{inscriptionBean.infoClient.email}">
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText>
+							<p:message for="emailX" />
+						</div>
+					</div>
+
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-3">
+							<p:outputLabel for="pwd1" value="Mot de passe:" />
+						</div>
+						<div class="col-md-9">
+							<p:password id="pwd1"
+								value="#{inscriptionBean.infoClient.password}" match="pwd2"
+								label="Password 1" required="true" />
+							<p:message for="pwd1" />
+						</div>
+					</div>
+
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-3">
+							<p:outputLabel for="pwd2" value="Confirmer Mot de passe:" />
+						</div>
+						<div class="col-md-9">
+							<p:password id="pwd2"
+								value="#{inscriptionBean.infoClient.password}"
+								label="Password 2" required="true" />
+							<p:message for="pwd2" />
+						</div>
+					</div>
+
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-3">
+							<p:outputLabel for="cinX" value="CIN:" />
+						</div>
+						<div class="col-md-9">
+							<p:inputText id="cinX" required="true"
+								value="#{inscriptionBean.infoClient.cin}"></p:inputText>
+							<p:message for="cinX" />
+						</div>
+					</div>
+					
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-3">
+							<p:outputLabel for="prenomX" value="Prénom:" />
+						</div>
+						<div class="col-md-9">
+							<p:inputText id="prenomX" required="true"
+								value="#{inscriptionBean.infoClient.firstName}"></p:inputText>
+							<p:message for="prenomX" />
+						</div>
+					</div>
+					
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-3">
+							<p:outputLabel for="nomX" value="Nom:" />
+						</div>
+						<div class="col-md-9">
+							<p:inputText id="nomX" required="true"
+								value="#{inscriptionBean.infoClient.lastName}"></p:inputText>
+							<p:message for="nomX" />
+						</div>
+					</div>
+					
+					<p:separator></p:separator>
+				</div>
+
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-3">
+							<p:outputLabel for="addresseX" value="Adresse:" />
+						</div>
+						<div class="col-md-9">
+							<p:inputText id="addresseX" required="true"
+								value="#{inscriptionBean.infoClient.adresseClient}"></p:inputText>
+							<p:message for="addresseX" />
+						</div>
+					</div>
+
+
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-3">
+							<p:outputLabel for="villeX" value="Ville:" />
+						</div>
+						<div class="col-md-9">
+							<p:inputText id="villeX" required="true"
+								value="#{inscriptionBean.infoClient.ville}"></p:inputText>
+							<p:message for="villeX" />
+						</div>
+					</div>
+
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-3">
+							<p:outputLabel for="codePostale" value="Code Postale:" />
+						</div>
+						<div class="col-md-9">
+							<p:inputText id="codePostale"
+								value="#{inscriptionBean.infoClient.codePostale}"></p:inputText>
+							<p:message for="codePostale" />
+						</div>
+					</div>
+
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-3">
+							<p:outputLabel for="tel" value="Tel:" />
+						</div>
+						<div class="col-md-9">
+							<p:inputText id="tel" value="#{inscriptionBean.infoClient.tel}"></p:inputText>
+							<p:message for="tel" />
+						</div>
+					</div>
+
+
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-3">
+							<p:outputLabel for="popup" value="Date de naissance:" />
+						</div>
+						<div class="col-md-9">
+						<p:calendar id="popup" required="true"
+								value="#{inscriptionBean.infoClient.dateNaissance}" />
+							<p:message for="popup" />
+						</div>
+					</div>
+
+
+
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-3">
+							<p:outputLabel for="NumCompte" value="Num de compte bancaire:" />
+						</div>
+						<div class="col-md-9">
+							<p:inputText id="NumCompte"
+								value="#{inscriptionBean.infoClient.numCompteBanc}"></p:inputText>
+							<p:message for="NumCompte" />
+						</div>
+					</div>
+
+					<p:separator></p:separator>
+					<div class="row">
+						<div class="col-md-3"></div>
+						<div class="col-md-3">
+							<p:commandButton value="Valider" id="valid" style="width : 180px"
+								action="#{inscriptionBean.ajouterClient}" ajax="false"></p:commandButton>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

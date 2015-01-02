@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><ui:insert name="title">Fijib</ui:insert></title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- Bootstrap -->
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<!-- Style -->
+	<h:outputStylesheet library="css" name="styles.css" />
+<!-- 	 <style type="text/css">
+	  body {
+ background-image: url("../resources/images/image_de_fond.jpg");
+ }
+	 </style> -->
+</h:head>
+
+<h:body>
+
+	<div class="navbar navbar-defaultx navbar-static-top">
+
+		 
+		<div class="pull-left">
+			<h:graphicImage library="images" name="header.jpg" />
+		</div>
+
+		<div
+			class="container collapse navbar-collapse navHeaderCollapse pull-right posX">
+			<ul class="nav nav-tabs">
+				<li ><a   class="selected" href="/fijib_project/insecurePages/accueil.xhtml" >Accueil</a></li>
+				<li class="dropdown" id="cond" ><a href="#" data-toggle="dropdown">Inscription <b class="caret"></b></a>
+					<ul  class="dropdown-menu">
+						<li ><a href="#">Conditions d'utilisation</a></li>
+						<li  ><a href="/fijib_project/insecurePages/inscription.xhtml" id="insc" onclick="changetoActive();">Inscription</a></li>
+					</ul></li>
+				<li class="dropdown" id="ser"><a href="#"  
+					data-toggle="dropdown">Services <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li> <a href="/fijib_project/insecurePages/calculFrais.xhtml">calculer frais</a></li>
+						<li><a href="#">rechercher agence</a></li>
+					</ul></li>
+				<li class="dropdown" id="aide"><a href="#" 
+					data-toggle="dropdown">aide <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Qui sommes nous?</a></li>
+						<li><a href="#">FAQ</a></li>
+						<li><a href="#">Contactez nous</a></li>
+					</ul></li>
+			</ul>
+		</div>
+	</div>
+	<!-- <div class="container hy"></div> -->
+	<div class="container">
+
+ 
+	
+		<div class="row col-md-12">
+		<ui:insert name="leftContenu">
+			<div class="col-md-6"  >
+				<h:graphicImage library="images" name="banniere.jpg"
+					class="img-responsive center-block" />
+			</div>
+			</ui:insert>
+			<ui:insert name="rightContenu">
+			<div class="col-md-6">
+				<div class="jumboHeader">
+					<ui:insert name="profil">
+						<center>
+							<h:form id="loginForm" prependId="false" class="padForm">
+								<p:panelGrid columns="2">
+									<h:outputLabel for="j_username" value="Email :" />
+									<p:inputText id="userName" required="true"
+										value="#{loginMgmtBean.userName}"
+										requiredMessage="Veuillez remplir le Login"></p:inputText>
+
+									<h:outputLabel for="j_password" value="Mot de passe :" />
+									<p:password id="password" required="true"
+										value="#{loginMgmtBean.password}"
+										requiredMessage="Veuillez entrer le mot de passe"
+										name="inTxtPasswordNm"></p:password>
+
+
+									<f:facet name="footer">
+										<center>
+											<!-- <p:growl id="growl" life="2000" />  update="growl"-->
+											<p:commandButton value="Connexion" id="nonAjax"
+												action="#{loginMgmtBean.login}"
+												styleClass="ui-priority-primary" ajax="false" />
+											<p:commandButton type="reset" value="Annuler"></p:commandButton>
+										</center>
+									</f:facet>
+
+								</p:panelGrid>
+							</h:form>
+						</center>
+					</ui:insert>
+				</div>
+			</div>	</ui:insert>
+			
+		</div>
+ 		<div class="col-md-12 row" style="height: 30px"> </div>
+		
+		<ui:insert name="contenu">
+
+		</ui:insert>
+
+	</div>
+	<div class="container hy"></div>
+	<div class="navbar navbar-default-foot navbar-static-bottom">
+		<div class="container">
+			<span class="navbar-text">Fijib copyright © 2014.</span>
+			<center>
+				<p class="navbar-text">
+					<a href="#"> Accueil </a>/<a href="#"> Inscription </a>/<a href="#">
+						Conditions d'utilisation </a>/ <a href="#"> Calculer frais </a>/<a
+						href="#"> Agences </a>/<a href="#"> Qui sommes nous? </a>/<a
+						href="#"> FAQ </a>/ <a href="#"> Contactez nous </a>
+				</p>
+			</center>
+		</div>
+	</div>
+
+	<!-- <script src="style/js/action.js" type="text/javascript"></script> -->
+	 <script src="https://code.jquery.com/jquery.js"></script> 
+	<!-- <script src="style/js/bootstrap.min.js"></script> -->
+
+	<h:outputScript library="js" name="action.js"></h:outputScript>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+   
+
+</h:body>
+</html>

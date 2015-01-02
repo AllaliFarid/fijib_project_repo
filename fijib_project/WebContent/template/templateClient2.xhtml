@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><ui:insert name="title">Fijib</ui:insert></title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- Bootstrap -->
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<!-- Style -->
+	<h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+
+<h:body>
+	<div class="navbar navbar-defaultx navbar-static-top">
+
+		<button class="navbar-toggle" data-toggle="collapse"
+			data-target=".navHeaderCollapse">
+			<span class="icon-bar barex"></span><span class="icon-bar barex"></span>
+			<span class="icon-bar barex"></span>
+		</button>
+
+		<div class="pull-left">
+			<h:graphicImage library="images" name="header.jpg" />
+		</div>
+
+		<div
+			class="container collapse navbar-collapse navHeaderCollapse pull-right posX">
+			<h:form>
+			<ul class="nav navbar-nav">
+				<li><a href="#">Accueil</a></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown">Envoi de l'argent à une personne<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li>
+							<p:commandLink id="nonAjax1" action="#{envoiBean.goToEnvoiInscrit}" ajax="false">
+						        <h:outputText value="Envoi de l'argent à une personne Inscrite" />
+						    </p:commandLink>
+							<!-- <a href="#">
+							
+							Envoi de l'argent à une personne Inscrite</a> -->
+						</li>
+						<li>
+							<p:commandLink id="nonAjax" action="#{envoiBean.goToEnvoiNs}" ajax="false">
+						        <h:outputText value="Envoi de l'argent à une personne non Inscrite" />
+						    </p:commandLink>
+							<!-- <a href="/fijib_project/securePages/ClientPages/accEnvoiNS.xhtml">Envoi de l'argent à une personne non
+								Inscrite</a> -->
+						</li>
+					</ul></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown">Retraits<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Retrait l'argent en personne</a></li>
+						<li><a href="#">Visualiser Retrait sur compte bancaire</a></li>
+					</ul></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown">Services <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">calculer frais</a></li>
+						<li><a href="#">rechercher agence</a></li>
+						<li><a href="#">Conditions d'utilisation</a></li>
+					</ul></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown">aide <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Qui sommes nous?</a></li>
+						<li><a href="#">FAQ</a></li>
+						<li><a href="#">Contactez nous</a></li>
+					</ul></li>
+
+				<li><!-- <h:form style="margin-left : 20px; margin-top : 12px"> -->
+						<h:commandLink>
+							<p:graphicImage id="citya" library="images"
+								name="personal.png" width="25" height="25">
+							</p:graphicImage>
+						</h:commandLink>
+					<!-- </h:form> --></li>
+
+				<li><!-- <h:form style="margin-left : 20px; margin-top : 12px"> -->
+						<h:commandLink action="#{loginMgmtBean.logout}">
+							<p:graphicImage id="city" library="images" name="shutdown.png"
+								width="25" height="25">
+							</p:graphicImage>
+						</h:commandLink>
+					<!-- </h:form> --></li>
+			</ul>
+			</h:form>
+		</div>
+	</div>
+	<!-- <div class="container hy"></div> -->
+	<div class="container">
+		<div class="row" style="height: 30px"></div>
+		
+		<ui:insert name="contenu"></ui:insert>
+	</div>
+	
+	<div class="container hy"></div>
+	<div class="navbar navbar-default-foot navbar-static-bottom">
+		<div class="container">
+			<span class="navbar-text">Fijib copyright © 2014.</span>
+			<center>
+				<p class="navbar-text">
+					<a href="#"> Accueil </a>/<a href="#"> Inscription </a>/<a href="#">
+						Conditions d'utilisation </a>/ <a href="#"> Calculer frais </a>/<a
+						href="#"> Agences </a>/<a href="#"> Qui sommes nous? </a>/<a
+						href="#"> FAQ </a>/ <a href="#"> Contactez nous </a>
+				</p>
+			</center>
+		</div>
+	</div>
+
+	<!-- <script src="style/js/action.js" type="text/javascript"></script> -->
+	<!-- <script src="https://code.jquery.com/jquery.js"></script> -->
+	<!-- <script src="style/js/bootstrap.min.js"></script> -->
+
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="js" name="action.js"></h:outputScript>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+
+</h:body>
+</html>

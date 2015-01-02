@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/FijibTemplate.xhtml">
+	<ui:define name="title">
+		Calcul Frais
+	</ui:define>
+    <ui:define name="leftContenu"></ui:define>
+	<ui:define name="rightContenu">
+		<script type="text/javascript">
+			$('a').removeClass('selected');
+			$('#ser a').addClass('selected');
+		</script>
+		<div class="jumbobody1 col-md-12" align="center">
+		<p:panelGrid>
+			<f:facet name="header">
+				<p:row>
+					<p:column colspan="7">
+						<p:outputLabel>Calcul des frais</p:outputLabel>
+					</p:column>
+				</p:row>
+			</f:facet>
+			<p:row>
+				<p:column>
+					<p:outputLabel style="width:200px">Montant</p:outputLabel>
+				</p:column>
+
+				<p:column>
+					<p:inputText value="#{agentManagedBean.envoiDto.montant}"
+						id="montant" required="true">
+						<p:ajax event="keyup" update="frais total "
+							listener="#{agentManagedBean.calculFrais}" />
+					</p:inputText>
+					<p:outputLabel>€</p:outputLabel>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<p:separator />
+		<div class="col-md-6 row" >
+ 				<div class="col-md-3" >
+					<p:outputLabel>Frais :</p:outputLabel>
+					<p:outputLabel value="#{agentManagedBean.envoiDto.frais} €"
+						id="frais"></p:outputLabel>
+				</div>
+				<div class="col-md-3" >
+					<p:outputLabel>Total :</p:outputLabel>
+					<p:outputLabel
+						value="#{agentManagedBean.envoiDto.montant+agentManagedBean.envoiDto.frais} €"
+						id="total"></p:outputLabel>
+				</div>
+ 		</div>
+	</div>
+	</ui:define>
+</ui:composition>
